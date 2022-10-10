@@ -21,8 +21,9 @@ export default () => {
       let originais = list.filter(i=>i.slug === 'originais');
       let randomChosen = Math.floor(Math.random() * (originais[0].items.results.length -1));
       let chosen = originais[0].items.results[randomChosen];
-
-      console.log(chosen);
+      let chosenInfo = await Tmdb.getMovieInfo(chosen.id, 'tv');
+      
+      setFeaturedData(chosenInfo);
     }
 
     loadAll();
@@ -35,7 +36,7 @@ useEffect significa que quando a tela for carregada ele vai executar a função 
     <div className='page'>
 
       {featuredDate &&
-        <featuredDate item={featuredDate} />
+        <FeaturedMovie item={featuredDate} />
       }
 
       <section className='lists'>
